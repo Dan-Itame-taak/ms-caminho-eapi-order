@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dealernet-sapi="http://www.mulesoft.org/schema/mule/dealernet-sapi" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/dealernet-sapi http://www.mulesoft.org/schema/mule/dealernet-sapi/current/mule-dealernet-sapi.xsd">
+	<sub-flow name="get-employees-schedulling" doc:id="c1ee19e9-9f1f-4049-b823-71278f6f3590" >
+		<logger level="INFO" doc:name="Logger Before Get Schedulling" doc:id="74238b97-1527-4d40-8742-95a99784db47" message="Integration: get-employees-scheduling | correlationId: #[correlationId] | Department: #[vars.department] | company: #[vars.company]"/>
+		<dealernet-sapi:get-scheduling-status doc:name="Get Scheduling Status" doc:id="15236285-0c12-4d10-9179-fd2cf59182bb" department="#[vars.department]" company="#[vars.company]" client-id="${secure::dealernet-sapi.client_id}" client-secret="${secure::dealernet-sapi.client_secret}" config-ref="Dealernet_sapi_Config"/>
+	</sub-flow>
+</mule>

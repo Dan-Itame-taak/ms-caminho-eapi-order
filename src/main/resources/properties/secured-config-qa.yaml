@@ -1,0 +1,12 @@
+fandi:
+  token: "![g3Uz6eiVQ9knZANfiBqwKew5vADXzcsJ]"
+  client_id: "![GqReF7IZh1+sdwVLhwUONvxUsjzgyox9np284XCOMAlhlNN/blhB2g==]"
+  client_secret: "![haFQcMohR+vuzL7Ei8WXRXt1g1Q7hJPEdn2DY8alyFF87gudOHfFcA==]"
+  
+salesforce-sapi:
+  client_id: "![KvuEG2HgsJGA3z2IAT0o48NWKsjiRHwTEP9oQjtSeEHY11ZAW1Y58g==]"
+  client_secret: "![Nv0P4ixIG3uRilI74ETK6jb1OiUPOet447AkGPzJ3NTieyrdJijA8g==]"
+  
+dealernet-sapi:
+  client_id: "![mii1WV3g93XO6rZyL7QbmMWT1wc7n0AhFGe69mQST7cqpRLAIoGYvg==]"
+  client_secret: "![HxmvpbL6t6ybO4rjt9Hl4c4VdUbVJaTVPVvdbytASxT5nCQUMy6/gg==]"

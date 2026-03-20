@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "creditAnalysisId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "financingAmount": {
+      "type": "number"
+    },
+    "installmentQuantity": {
+      "type": "integer"
+    },
+    "installmentValue": {
+      "type": "number"
+    },
+    "bank": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "creditAnalysisId",
+    "status",
+    "financingAmount",
+    "installmentQuantity",
+    "installmentValue",
+    "bank"
+  ]
+}

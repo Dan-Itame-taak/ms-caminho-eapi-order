@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce-sapi="http://www.mulesoft.org/schema/mule/salesforce-sapi" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce-sapi http://www.mulesoft.org/schema/mule/salesforce-sapi/current/mule-salesforce-sapi.xsd">
+	<sub-flow name="send-financing-simulation-to-salesforce-sapi" doc:id="ad15f80d-271f-46b4-98c7-23d20fa4f108" >
+		<logger level="INFO" doc:name="Logger Before Request to Salesforce-SAPI" doc:id="0dbae551-d72f-49e4-a94c-dff30723ccec" message="Integration: send-financing-simulation | correlationId: #[correlationId] | payload: #[payload]"/>
+		<salesforce-sapi:send-financing-simulation-to-salesforce doc:name="Send Financing Simulation to SalesForce" doc:id="2942b485-7a47-49c6-9dce-e05f50f817bd" config-ref="Salesforce_sapi_Config" token="#[attributes.uriParams.token]" client-id="${secure::salesforce-sapi.client_id}" client-secret="${secure::salesforce-sapi.client_secret}" guid-id="#[attributes.queryParams.guid_id]"/>
+		<logger level="INFO" doc:name="Logger After Send Financing Simulation" doc:id="cf291428-c7c3-4e42-941c-4062051e6d73" message="Integration: send-financing-simulation | correlationId: #[correlationId] | StatusCode: 200 | Success"/>
+	</sub-flow>
+	<sub-flow name="search-recordType-salesforce" doc:id="4c76918a-1384-4874-a06f-bc5365ee27d3" >
+		<logger level="INFO" doc:name="Logger Before Retrieve RecordType" doc:id="12095957-b65a-4c1f-9dc3-857c95295383" message="correlationId: #[correlationId] | Object: #[vars.object] | Name: #[vars.name]"/>
+		<salesforce-sapi:retrieve-id-of-recordtype doc:name="Retrieve ID of RecordType" doc:id="9f1ea46c-970b-408d-9d90-42a6dc92d327" object="#[vars.object]" sc-name="#[vars.name]" config-ref="Salesforce_sapi_Config" client-id="${secure::salesforce-sapi.client_id}" client-secret="${secure::salesforce-sapi.client_secret}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a88d3eb8-40ff-42aa-bf00-e15c4c6102f9" message="Integration: get-employees-scheduling | correlationId: #[correlationId] | recordTypeId: #[payload]"/>
+	</sub-flow>
+	<sub-flow name="send-credit-analysis-status-to-salesforce-sapi" doc:id="1d962d35-312b-482b-84c3-decb701dcfc8" >
+		<logger level="INFO" doc:name="Logger Before Request to Salesforce-SAPI" doc:id="cba9366e-8a8e-4e74-9799-8acaafa64c15" message="Integration: send-credit-analysis-status | correlationId: #[correlationId] | payload: #[payload]" />
+		<salesforce-sapi:send-credit-analysis-status doc:name="Send Credit Analysis Status" doc:id="bde8a340-d5fd-45b6-8e02-209fd3537818" config-ref="Salesforce_sapi_Config" client-id="${secure::fandi.client_id}" client-secret="${secure::fandi.client_secret}"/>
+		<logger level="INFO" doc:name="Logger After Send Financing Simulation" doc:id="55ff27d9-c076-4c89-a527-5038723ff0b7" message="Integration: send-credit-analysis-status | correlationId: #[correlationId] | StatusCode: 200 | Success" />
+	</sub-flow>
+</mule>
