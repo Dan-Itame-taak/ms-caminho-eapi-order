@@ -24,4 +24,7 @@ http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mu
 	<sub-flow name="send-service-order-subflow" doc:id="49fabfec-f547-42c8-9c8e-e9273bafcb82" >
 		<order-papi:create-service-order doc:name="Create service order" doc:id="fb47906d-25a6-4ee6-8f91-5cb64576a141" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
 	</sub-flow>
+	<sub-flow name="cancel-proposal-subflow" doc:id="2f6255ef-602b-45a1-ab1f-7fd5b3ec625a" >
+		<order-papi:cancel-proposal-by-id doc:name="Cancel Proposal by ID" doc:id="0a3dd527-1c9e-4b70-bff4-dc2b3f7f4751" config-ref="Order_papi_Config" id="#[vars.id]" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
+	</sub-flow>
 </mule>

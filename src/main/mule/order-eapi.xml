@@ -3,7 +3,7 @@
     <http:listener-config name="order-eapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.8:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.9:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="order-eapi-main">
         <http:listener config-ref="order-eapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -127,22 +127,22 @@ output application/json
         <logger level="INFO" message="get:\proposal:order-eapi-config" />
     </flow>
     <flow name="post:\proposal:application\json:order-eapi-config">
-		<flow-ref doc:name="send-proposal-subflow" doc:id="3c6cf3fa-f627-4dec-9c9b-57094218fda5" name="send-proposal-subflow"/>
+        <flow-ref doc:name="send-proposal-subflow" doc:id="3c6cf3fa-f627-4dec-9c9b-57094218fda5" name="send-proposal-subflow" />
     </flow>
     <flow name="post:\register-service:application\json:order-eapi-config">
-		<logger level="INFO" doc:name="Start - Logger" doc:id="a0ad7128-36cf-43d5-aa5c-9906439c4aa1" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Work Order to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
-		<flow-ref doc:name="send-register-service-subflow" doc:id="ec3aedae-3039-4c49-b523-bbbe9aed4449" name="send-service-order-subflow"/>
-		<logger level="INFO" doc:name="End - Logger" doc:id="bd1e4274-218d-450b-8643-c53afe98bf62" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Work Order to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+        <logger level="INFO" doc:name="Start - Logger" doc:id="a0ad7128-36cf-43d5-aa5c-9906439c4aa1" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+        <flow-ref doc:name="send-register-service-subflow" doc:id="ec3aedae-3039-4c49-b523-bbbe9aed4449" name="send-service-order-subflow" />
+        <logger level="INFO" doc:name="End - Logger" doc:id="bd1e4274-218d-450b-8643-c53afe98bf62" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\service-order:application\json:order-eapi-config">
         <logger level="INFO" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" doc:name="Start - Logger" />
-        <flow-ref doc:name="send-service-order-subflow" doc:id="47853088-ce43-4e5d-9c39-22857d0e067c" name="send-service-order-subflow"/>
+        <flow-ref doc:name="send-service-order-subflow" doc:id="47853088-ce43-4e5d-9c39-22857d0e067c" name="send-service-order-subflow" />
         <logger level="INFO" doc:name="End - Logger" doc:id="ea7bf438-f3ce-4c62-a77e-217c91cf8d94" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\used-valuation:application\json:order-eapi-config">
-		<logger level="INFO" doc:name="Start - Logger" doc:id="34dcfb84-e7a3-402b-aa16-0ff922809642" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Used Evaluation to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
-		<flow-ref doc:name="send-used-evaluation-subflow" doc:id="3d451b76-4df6-4118-8044-c127abb6e3d5" name="send-used-evaluation-subflow"/>
-		<logger level="INFO" doc:name="End - Logger" doc:id="0dd47cee-2579-4052-87e1-5f067113fd46" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Used Evaluation to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+        <logger level="INFO" doc:name="Start - Logger" doc:id="34dcfb84-e7a3-402b-aa16-0ff922809642" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Used Evaluation to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+        <flow-ref doc:name="send-used-evaluation-subflow" doc:id="3d451b76-4df6-4118-8044-c127abb6e3d5" name="send-used-evaluation-subflow" />
+        <logger level="INFO" doc:name="End - Logger" doc:id="0dd47cee-2579-4052-87e1-5f067113fd46" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Used Evaluation to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\simulation\(token):application\json:order-eapi-config">
         <choice doc:name="Choice" doc:id="a238e530-f007-4515-bc7e-a65d97c9e01a">
@@ -203,13 +203,31 @@ payload]]></ee:set-payload>
         <error-handler ref="globalError_Router" />
     </flow>
     <flow name="post:\appointment:application\json:order-eapi-config">
-		<logger level="INFO" doc:name="Start - Logger" doc:id="8f4c3a31-3d0b-4675-95a7-2b815ca84573" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Appointment to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
-		<flow-ref doc:name="send-service-appointment-subflow" doc:id="3332c16b-f840-4bb5-99cc-cdb42ef6aba6" name="send-service-appointment-subflow"/>
-		<logger level="INFO" doc:name="End - Logger" doc:id="4653d28c-8c45-45e5-bbcd-b34413e554e0" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Appointment to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+        <logger level="INFO" doc:name="Start - Logger" doc:id="8f4c3a31-3d0b-4675-95a7-2b815ca84573" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Appointment to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+        <flow-ref doc:name="send-service-appointment-subflow" doc:id="3332c16b-f840-4bb5-99cc-cdb42ef6aba6" name="send-service-appointment-subflow" />
+        <logger level="INFO" doc:name="End - Logger" doc:id="4653d28c-8c45-45e5-bbcd-b34413e554e0" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Appointment to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\backup-car:application\json:order-eapi-config">
-		<logger level="INFO" doc:name="Start - Logger" doc:id="d922d401-5719-46ae-91ac-bdc7d29b8418" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Backup Cara to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
-		<flow-ref doc:name="send-backup-car-subflow" doc:id="b9d442c5-1ba6-4cf8-a901-d6075c023340" name="send-backup-car-subflow"/>
-		<logger level="INFO" doc:name="End - Logger" doc:id="aa1a18d4-53ce-4b55-82d0-4a6086efab03" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Backup Car to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+        <logger level="INFO" doc:name="Start - Logger" doc:id="d922d401-5719-46ae-91ac-bdc7d29b8418" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Backup Cara to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+        <flow-ref doc:name="send-backup-car-subflow" doc:id="b9d442c5-1ba6-4cf8-a901-d6075c023340" name="send-backup-car-subflow" />
+        <logger level="INFO" doc:name="End - Logger" doc:id="aa1a18d4-53ce-4b55-82d0-4a6086efab03" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Backup Car to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+    </flow>
+    <flow name="put:\proposal\(id):application\json:order-eapi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:variables>
+                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <logger level="INFO" message="put:\proposal\(id):application\json:order-eapi-config" />
+    </flow>
+    <flow name="delete:\proposal\(id):order-eapi-config">
+        <logger level="INFO" doc:name="Start - Logger" doc:id="6bb2911a-025b-4576-b4cc-2b1768224807" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Proposal Status Cancel to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+		<ee:transform doc:name="Transform Message">
+            <ee:variables>
+                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="cancel-proposal-subflow" doc:id="0b4cbc55-1307-4be0-aad5-ce28533b187c" name="cancel-proposal-subflow"/>
+		<logger level="INFO" doc:name="End - Logger" doc:id="60292e2d-e80e-4975-a1b4-b2bc649a0a2e" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Proposal Status Cancel to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
     </flow>
 </mule>
