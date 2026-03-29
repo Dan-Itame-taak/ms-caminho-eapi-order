@@ -11,3 +11,10 @@ dealernet-sapi:
   port: "443"
   timeout: "50000"
   basePath: "/api"
+
+
+order-papi:
+  host: "caminho-order-papi-qa-e7hhs6.f12twh.usa-e2.cloudhub.io"
+  port: "443"
+  timeout: "50000"
+  basePath: "/api"
