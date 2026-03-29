@@ -21,7 +21,7 @@ http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mu
 	<sub-flow name="send-used-evaluation-subflow" doc:id="fc4b36b8-396c-476c-916c-c7ca7e0ea05a" >
 		<order-papi:create-used-valuation doc:name="Create used valuation" doc:id="80660cec-23ce-4e6d-902b-ca03480d6ee9" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
 	</sub-flow>
-	<sub-flow name="send-register-service-subflow" doc:id="49fabfec-f547-42c8-9c8e-e9273bafcb82" >
-		<order-papi:create-register-service doc:name="Create register service" doc:id="f9d08743-606a-4555-9119-2f2116ec07d4" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
+	<sub-flow name="send-service-order-subflow" doc:id="49fabfec-f547-42c8-9c8e-e9273bafcb82" >
+		<order-papi:create-service-order doc:name="Create service order" doc:id="fb47906d-25a6-4ee6-8f91-5cb64576a141" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
 	</sub-flow>
 </mule>

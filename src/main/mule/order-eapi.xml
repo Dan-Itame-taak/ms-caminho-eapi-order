@@ -131,12 +131,12 @@ output application/json
     </flow>
     <flow name="post:\register-service:application\json:order-eapi-config">
 		<logger level="INFO" doc:name="Start - Logger" doc:id="a0ad7128-36cf-43d5-aa5c-9906439c4aa1" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Work Order to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
-		<flow-ref doc:name="send-register-service-subflow" doc:id="ec3aedae-3039-4c49-b523-bbbe9aed4449" name="send-register-service-subflow"/>
+		<flow-ref doc:name="send-register-service-subflow" doc:id="ec3aedae-3039-4c49-b523-bbbe9aed4449" name="send-service-order-subflow"/>
 		<logger level="INFO" doc:name="End - Logger" doc:id="bd1e4274-218d-450b-8643-c53afe98bf62" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Work Order to Dealernet",&#10; payload: payload,&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
     </flow>
     <flow name="post:\service-order:application\json:order-eapi-config">
         <logger level="INFO" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" doc:name="Start - Logger" />
-        <order-papi:create-service-order doc:name="Create service order" doc:id="10450cd7-0d90-421b-8a7f-6265fd976841" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_id}" />
+        <flow-ref doc:name="send-service-order-subflow" doc:id="47853088-ce43-4e5d-9c39-22857d0e067c" name="send-service-order-subflow"/>
         <logger level="INFO" doc:name="End - Logger" doc:id="ea7bf438-f3ce-4c62-a77e-217c91cf8d94" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\used-valuation:application\json:order-eapi-config">
