@@ -21,19 +21,19 @@ http://www.mulesoft.org/schema/mule/product-papi http://www.mulesoft.org/schema/
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="ca868c77-cf44-424c-ac6c-7b9c94dd4594" flowRef="order-eapi-main" />
 	<order-papi:config name="Order_papi_Config" doc:name="Order-papi Config" doc:id="fb224dcc-eddc-41e5-b730-07d006cd842c" property_host="${order-papi.host}" property_port="${order-papi.port}" property_basePath="/api/" property_responseTimeout="${order-papi.timeout}" />
 	<product-papi:config name="Product_papi_Config" doc:name="Product-papi Config" doc:id="f905374d-39f3-4da8-b62b-949ded8746a3" property_host="${product-papi.host}" property_port="${product-papi.port}" property_basePath="/api/" property_responseTimeout="50000" />
-	<error-handler name="globalError_Router" doc:id="de6d4d90-2305-474f-951e-1a13b1da3256" >
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="3bf4d496-5352-4193-bd61-7c2a61e20288" type="HTTP:*" >
-			<ee:transform doc:name="Error Payload" doc:id="aa81d600-d1aa-424f-9169-c9795a95c83f" >
+	<error-handler name="globalError_Router" doc:id="f3216fd3-6522-4ec8-a4c9-6a2de0827765" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="808f9a2f-924f-43c6-8f7c-540eac329592" type="*:BAD_REQUEST" >
+			<ee:transform doc:name="Error Payload" doc:id="3e554a2b-f558-4f1b-a03c-eeec6a6caad9" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
+var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause
 else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
 else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: "order-eapi",
+	errorType: "Bad Request",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-payload>
@@ -47,18 +47,18 @@ else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: "order-eapi",
+	errorType: "Bad Request",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
-			<logger level="INFO" doc:name="Logger Error" doc:id="6c9db9cc-6e51-4b75-b08a-4180564ba48e" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="7451f845-fba9-4bd1-b66c-8150118d5907" type="${nameSpace}:BAD_REQUEST" description="#[vars.erro.description]" />
+			<logger level="INFO" doc:name="Logger Error" doc:id="dc3c2098-93b6-4441-9d59-fef5ff559d11" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="cb576546-3811-4621-9f4f-e4f742e9c97c" type="${nameSpace}:BAD_REQUEST" description="#[vars.erro.description]" />
 		</on-error-propagate>
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate1" doc:id="96e166c7-0138-4671-96f1-dc42cb85d9e6" type="SALESFORCE:*" >
-			<ee:transform doc:name="Error Payload" doc:id="2d3a0829-a4f7-4503-92de-b0ec556d76dd" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate1" doc:id="e489dc05-9dfe-45bf-ae79-4b5c5c4ceadc" type="*:UNAUTHORIZED" >
+			<ee:transform doc:name="Error Payload" doc:id="81ddbf79-a9f5-4df8-bbd6-e6903c265d55" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
 var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
@@ -67,8 +67,8 @@ else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: "order-eapi",
+	errorType: "Unauthorized",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-payload>
@@ -82,28 +82,27 @@ else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: "order-eapi",
+	errorType: "Unauthorized",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
-			<logger level="INFO" doc:name="Logger Error" doc:id="37dff029-31b9-400a-8b5c-4de2b8e63251" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="e5e3d086-f9d6-41fa-a4c9-d8a0d5475808" type="${nameSpace}:UNAUTHORIZED" description="#[vars.erro.description]" />
+			<logger level="INFO" doc:name="Logger Error" doc:id="97578611-21fa-4c14-8c8e-d0604bdc1857" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="199b7b0e-443e-467b-aecf-1992c2389c01" type="${nameSpace}:UNAUTHORIZED" description="#[vars.erro]" />
 		</on-error-propagate>
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate2" doc:id="d56dc4f6-764d-4925-909b-842c1d3972a0" type="DB:*" >
-			<ee:transform doc:name="Error Payload" doc:id="01eec02b-6ef5-4239-b0d6-26c167962940" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate2" doc:id="8ee09285-46b0-40e9-98eb-2ed5737c27a0" type="*:FORBIDDEN" >
+			<ee:transform doc:name="Error Payload" doc:id="679a7f8f-baed-4c57-b9ee-0fb6af8ca1d8" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
 else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: "order-eapi",
+	errorType: "Forbidden",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-payload>
@@ -111,28 +110,158 @@ output application/json
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[403]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
 else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: "order-eapi",
+	errorType: "Forbidden",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
-			<logger level="INFO" doc:name="Logger Error" doc:id="12745743-2132-453a-8e93-91ba1761d37b" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="9d20ebf0-fb30-4521-a1f3-54174756e1d7" type="${nameSpace}:FORBIDDEN" description="#[vars.erro.description]" />
+			<logger level="INFO" doc:name="Logger Error" doc:id="6944ad4b-baff-470d-9708-f7aab1ec02a7" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="b3193827-e32d-4fd3-9b52-9c0f252db6d2" type="${nameSpace}:FORBIDDEN" description="#[vars.erro]" />
 		</on-error-propagate>
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate6" doc:id="ccb861b7-53bb-4a2e-8cfa-9b573ef4f586" type="ANY" >
-			<ee:transform doc:name="Error Payload" doc:id="f0372cd4-c6ca-40c3-a45a-fb9c4686c9a9">
-				<ee:message>
-					<ee:set-payload><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate3" doc:id="5eb306b7-2db8-4c1b-8c95-90b998865bf3" type="*:NOT_FOUND" >
+			<ee:transform doc:name="Error Payload" doc:id="c532d9c9-b77d-40f2-a108-771f02623f53" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Not Found",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="httpStatus" ><![CDATA[404]]></ee:set-variable>
+					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Not Found",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger Error" doc:id="c478f67e-1a05-4db3-9667-e0d5e8cb3349" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="8838348f-3744-44e2-b096-a25faddf2892" type="${nameSpace}:NOT_FOUND" description="#[vars.erro]" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate4" doc:id="ca29d13a-5cde-440a-89e9-975b25f59029" type="*:BAD_GATEWAY" >
+			<ee:transform doc:name="Error Payload" doc:id="82bafdaf-ac76-4615-9b6d-f2e54ed06f42" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Bad Gateway",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="httpStatus" ><![CDATA[502]]></ee:set-variable>
+					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Bad Gateway",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger Error" doc:id="d472378d-1b72-4b57-8956-8c961fbdf719" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="969b57ec-6b95-4be7-9ec5-bf7e34d91871" type="${nameSpace}:BAD_GATEWAY" description="#[vars.erro]" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate5" doc:id="7cdfae07-0887-476c-aeae-0b7cc646ddd9" type="*:SERVICE_UNAVAILABLE" >
+			<ee:transform doc:name="Error Payload" doc:id="61cf321b-eb29-49ac-9c1e-f72138615e12" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Service Unavaible",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="httpStatus" ><![CDATA[503]]></ee:set-variable>
+					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Service Unavaible",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger Error" doc:id="44937db4-9926-484e-807b-bcc92516ea55" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="fec43eda-4389-405e-989b-8b85fc5278e9" type="${nameSpace}:SERVICE_UNAVAILABLE" description="#[vars.erro]" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate6" doc:id="77c19f26-6da1-4565-ab85-669e85bee13d" type="DB:*" >
+			<ee:transform doc:name="Error Payload" doc:id="2940ff35-976c-43e3-8c3c-943daa46366f" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: error.errorType.identifier,
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="httpStatus" ><![CDATA[400]]></ee:set-variable>
+					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+else error.exception.cause.message
+output application/json
+---
+{
+	errorType: "Query Execution",
+	layer: "order-papi",
+	description: error.detailedDescription,
+	cause: cause
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<logger level="INFO" doc:name="Logger Error" doc:id="c67dbc60-9731-428f-b112-f034634f8068" message="#[vars.erro]" />
+			<raise-error doc:name="Raise error" doc:id="6179d193-c6c5-4176-80bd-46a8ed43b06c" type="${nameSpace}:QUERY_EXECUTION" description="#[vars.erro]" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate7" doc:id="ccce8cf2-9be7-4443-9045-ae2588aa8646" type="ANY" >
+			<ee:transform doc:name="Error Payload" doc:id="fdf274be-ff47-470b-8fc0-583a23e4e48c" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
 else error.exception.cause.message
 output application/json
 ---
@@ -143,23 +272,22 @@ output application/json
 	cause: cause
 }]]></ee:set-payload>
 				</ee:message>
-				<ee:variables>
-					<ee:set-variable variableName="httpStatus"><![CDATA[403]]></ee:set-variable>
-					<ee:set-variable variableName="erro"><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
+				<ee:variables >
+					<ee:set-variable variableName="httpStatus" ><![CDATA[503]]></ee:set-variable>
+					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
+var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
 else error.exception.cause.message
 output application/json
 ---
 {
-	errorType: error.errorType.identifier,
-	layer: error.errorType.namespace,
+	errorType: "Internal Server Error",
+	layer: "order-papi",
 	description: error.detailedDescription,
 	cause: cause
 }]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
-			<logger level="INFO" doc:name="Logger Error" doc:id="7787e42e-4c33-4e4f-9514-f021932f4c15" message="#[payload]" />
+			<logger level="INFO" doc:name="Logger Error" doc:id="2f514c77-1273-4c78-ae4b-8ffa9e3453bc" message="#[payload]" />
 		</on-error-propagate>
 	</error-handler>
 </mule>

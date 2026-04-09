@@ -15,7 +15,8 @@
             </http:error-response>
         </http:listener>
         <apikit:router config-ref="order-eapi-config" />
-        <error-handler ref="globalError_Router" />
+		<error-handler ref="globalError_Router" />
+        
     </flow>
     <flow name="order-eapi-console">
         <http:listener config-ref="order-eapi-httpListenerConfig" path="/console/*">
@@ -83,7 +84,7 @@ payload]]></ee:set-payload>
                 <raise-error doc:name="Raise error" doc:id="741f1f18-0dac-4240-b5fb-f32200db53af" type="ORDER-EAPI:UNAUTHORIZED" description="Token inválido." />
             </otherwise>
         </choice>
-        <error-handler ref="globalError_Router" />
+        
     </flow>
     <flow name="get:\employees\scheduled:order-eapi-config">
         <ee:transform doc:name="Variables to Get Mechanics Scheduliing and recordType" doc:id="cffee14d-f3ae-49af-8907-975f307e814d">
@@ -110,7 +111,7 @@ attributes.queryParams.company]]></ee:set-variable>
         </ee:transform>
         <flow-ref doc:name="search-recordType-salesforce" doc:id="f3212875-c097-496b-bea4-56911fcecb0d" name="search-recordType-salesforce" />
         <flow-ref doc:name="get-employees-schedulling" doc:id="193280ac-c9e5-4620-bfa9-66dfacc99b4b" name="get-employees-schedulling" />
-        <error-handler ref="globalError_Router" />
+        
     </flow>
     <flow name="post:\fandi\credit-analysis\status:application\json:order-eapi-config">
         <ee:transform doc:name="Payload" doc:id="421b090e-ea91-4c98-9ff0-755b83661cbf">
@@ -122,7 +123,7 @@ payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
         <flow-ref doc:name="send-credit-analysis-status-to-salesforce-sapi" doc:id="fc538681-1f10-4357-83a2-3429c1ec910f" name="send-credit-analysis-status-to-salesforce-sapi" />
-        <error-handler ref="globalError_Router" />
+        
     </flow>
     <flow name="post:\appointment:application\json:order-eapi-config">
         <logger level="INFO" doc:name="Start - Logger" doc:id="8f4c3a31-3d0b-4675-95a7-2b815ca84573" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Appointment to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
