@@ -9,22 +9,4 @@ http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mu
 		<logger level="INFO" doc:name="Logger Before Get Schedulling" doc:id="74238b97-1527-4d40-8742-95a99784db47" message="Integration: get-employees-scheduling | correlationId: #[correlationId] | Department: #[vars.department] | company: #[vars.company]"/>
 		<dealernet-sapi:get-scheduling-status doc:name="Get Scheduling Status" doc:id="15236285-0c12-4d10-9179-fd2cf59182bb" department="#[vars.department]" company="#[vars.company]" client-id="${secure::dealernet-sapi.client_id}" client-secret="${secure::dealernet-sapi.client_secret}" config-ref="Dealernet_sapi_Config"/>
 	</sub-flow>
-	<sub-flow name="send-service-appointment-subflow" doc:id="d6c4784c-1fbe-4643-bcc3-46860ece58c2" >
-		<order-papi:create-appointment doc:name="Create appointment" doc:id="150295dd-2ece-49bf-8511-1f7e0d5f206a" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
-	</sub-flow>
-	<sub-flow name="send-proposal-subflow" doc:id="cd3f8fa0-e5d5-4b4c-9dc6-967cb86a6c39" >
-		<order-papi:create-proposal doc:name="Create proposal" doc:id="d4b8c566-4327-4d5a-9d74-562996505e6b" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
-	</sub-flow>
-	<sub-flow name="send-backup-car-subflow" doc:id="5dbff476-4525-40a3-9e03-cd9ccd800f19" >
-		<order-papi:send-back-up-car doc:name="Send Back-up car" doc:id="49567dcd-e3a4-4295-bd3b-c388a13fdfb1" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
-	</sub-flow>
-	<sub-flow name="send-used-evaluation-subflow" doc:id="fc4b36b8-396c-476c-916c-c7ca7e0ea05a" >
-		<order-papi:create-used-valuation doc:name="Create used valuation" doc:id="80660cec-23ce-4e6d-902b-ca03480d6ee9" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
-	</sub-flow>
-	<sub-flow name="send-service-order-subflow" doc:id="49fabfec-f547-42c8-9c8e-e9273bafcb82" >
-		<order-papi:create-service-order doc:name="Create service order" doc:id="fb47906d-25a6-4ee6-8f91-5cb64576a141" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
-	</sub-flow>
-	<sub-flow name="cancel-proposal-subflow" doc:id="2f6255ef-602b-45a1-ab1f-7fd5b3ec625a" >
-		<order-papi:cancel-proposal-by-id doc:name="Cancel Proposal by ID" doc:id="0a3dd527-1c9e-4b70-bff4-dc2b3f7f4751" config-ref="Order_papi_Config" id="#[vars.id]" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
-	</sub-flow>
 </mule>

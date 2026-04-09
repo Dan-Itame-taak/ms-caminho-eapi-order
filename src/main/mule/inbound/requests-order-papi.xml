@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:order-papi="http://www.mulesoft.org/schema/mule/order-papi" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mule/order-papi/current/mule-order-papi.xsd">
+	<sub-flow name="send-backup-car-subflow" doc:id="b43ce99a-9c4e-4c9a-b429-011283e0f7be" >
+		<order-papi:send-back-up-car doc:name="Send Back-up car" doc:id="17b34d38-589f-457c-a7eb-a5207eb007e5" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
+	</sub-flow>
+	<sub-flow name="send-proposal-subflow" doc:id="660e6897-7edb-4f24-b220-c0a002d692ad" >
+		<order-papi:create-proposal doc:name="Create proposal" doc:id="e789299a-6c0c-4b8b-856b-fa474d0a950f" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
+	</sub-flow>
+	<sub-flow name="send-service-appointment-subflow" doc:id="ae7b1d84-6a9c-4f05-be84-4aec29bd4018" >
+		<order-papi:create-appointment doc:name="Create appointment" doc:id="75e7b080-7ed4-42fe-a78d-1531dc295767" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
+	</sub-flow>
+	<sub-flow name="send-service-order-subflow" doc:id="b9fa5756-927c-45a1-afdc-24de93ee7040" >
+		<order-papi:create-service-order doc:name="Create service order" doc:id="a2d6a7a6-c0c9-48c7-8498-950a103a6a12" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
+	</sub-flow>
+	<sub-flow name="cancel-proposal-subflow" doc:id="5827993e-1697-4166-ad91-46dff506b749" >
+		<order-papi:cancel-proposal-by-id doc:name="Cancel Proposal by ID" doc:id="d49edbe4-184e-43ce-987a-efcc96b898cc" config-ref="Order_papi_Config" id="#[vars.id]" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
+	</sub-flow>
+	<sub-flow name="send-used-evaluation-subflow" doc:id="54d60175-5643-4f6f-a980-e2f16625cc7e" >
+		<order-papi:create-used-valuation doc:name="Create used valuation" doc:id="3494d4dc-8e94-4207-b2d2-76398049086b" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
+	</sub-flow>
+</mule>

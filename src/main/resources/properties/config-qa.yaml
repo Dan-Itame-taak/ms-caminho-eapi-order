@@ -17,3 +17,9 @@ order-papi:
   port: "443"
   timeout: "50000"
   basePath: "/api"
+  
+product-papi:
+  host: "caminho-product-papi-qa-e7hhs6.f12twh.usa-e2.cloudhub.io"
+  port: "443"
+  timeout: "50000"
+  basePath: "/api"

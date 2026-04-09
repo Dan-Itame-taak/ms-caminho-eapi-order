@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:order-papi="http://www.mulesoft.org/schema/mule/order-papi" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
-	xmlns:dealernet-sapi="http://www.mulesoft.org/schema/mule/dealernet-sapi"
-	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce-sapi="http://www.mulesoft.org/schema/mule/salesforce-sapi" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:product-papi="http://www.mulesoft.org/schema/mule/product-papi" xmlns:order-papi="http://www.mulesoft.org/schema/mule/order-papi"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:dealernet-sapi="http://www.mulesoft.org/schema/mule/dealernet-sapi" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce-sapi="http://www.mulesoft.org/schema/mule/salesforce-sapi" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
 http://www.mulesoft.org/schema/mule/salesforce-sapi http://www.mulesoft.org/schema/mule/salesforce-sapi/current/mule-salesforce-sapi.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/dealernet-sapi http://www.mulesoft.org/schema/mule/dealernet-sapi/current/mule-dealernet-sapi.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
-http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mule/order-papi/current/mule-order-papi.xsd">
+http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mule/order-papi/current/mule-order-papi.xsd
+http://www.mulesoft.org/schema/mule/product-papi http://www.mulesoft.org/schema/mule/product-papi/current/mule-product-papi.xsd">
 	<global-property doc:name="Global Property" doc:id="0eea76ea-29db-436f-bdcd-124d8380e6f5" name="mule.env" value="qa" />
 	<global-property doc:name="Global Property" doc:id="005eef5e-31ba-41a9-b7a3-9bbe174221cf" name="nameSpace" value="ORDER-EAPI" />
 	<configuration-properties doc:name="Configuration properties" doc:id="26bd1c23-271a-41ad-9699-788d9d99a7ad" file="properties\config-${mule.env}.yaml" />
@@ -19,6 +20,7 @@ http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mu
 	<dealernet-sapi:config name="Dealernet_sapi_Config" doc:name="Dealernet-sapi Config" doc:id="1ee8f944-aa16-4095-9f6e-b7eb137402a9" property_host="${dealernet-sapi.host}" property_port="${dealernet-sapi.port}" property_basePath="/api/" property_responseTimeout="${dealernet-sapi.timeout}" />
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="ca868c77-cf44-424c-ac6c-7b9c94dd4594" flowRef="order-eapi-main" />
 	<order-papi:config name="Order_papi_Config" doc:name="Order-papi Config" doc:id="fb224dcc-eddc-41e5-b730-07d006cd842c" property_host="${order-papi.host}" property_port="${order-papi.port}" property_basePath="/api/" property_responseTimeout="${order-papi.timeout}" />
+	<product-papi:config name="Product_papi_Config" doc:name="Product-papi Config" doc:id="f905374d-39f3-4da8-b62b-949ded8746a3" property_host="${product-papi.host}" property_port="${product-papi.port}" property_basePath="/api/" property_responseTimeout="50000" />
 	<error-handler name="globalError_Router" doc:id="de6d4d90-2305-474f-951e-1a13b1da3256" >
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="3bf4d496-5352-4193-bd61-7c2a61e20288" type="HTTP:*" >
 			<ee:transform doc:name="Error Payload" doc:id="aa81d600-d1aa-424f-9169-c9795a95c83f" >

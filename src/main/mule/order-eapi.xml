@@ -3,7 +3,7 @@
     <http:listener-config name="order-eapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.9:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.10:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="order-eapi-main">
         <http:listener config-ref="order-eapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -15,7 +15,7 @@
             </http:error-response>
         </http:listener>
         <apikit:router config-ref="order-eapi-config" />
-		<error-handler ref="globalError_Router" />
+        <error-handler ref="globalError_Router" />
     </flow>
     <flow name="order-eapi-console">
         <http:listener config-ref="order-eapi-httpListenerConfig" path="/console/*">
@@ -48,6 +48,7 @@ output application/json
         <logger level="INFO" message="get:\proposal:order-eapi-config" />
     </flow>
     <flow name="post:\proposal:application\json:order-eapi-config">
+        <logger level="INFO" doc:name="Start Logger  - Proposal" doc:id="f485de2e-9bc2-431e-8ade-d7d5b9e8456b" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Work Order to Dealernet&quot;,&#xA; payload: payload,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
         <flow-ref doc:name="send-proposal-subflow" doc:id="3c6cf3fa-f627-4dec-9c9b-57094218fda5" name="send-proposal-subflow" />
     </flow>
     <flow name="post:\register-service:application\json:order-eapi-config">
@@ -142,13 +143,17 @@ payload]]></ee:set-payload>
         <logger level="INFO" message="put:\proposal\(id):application\json:order-eapi-config" />
     </flow>
     <flow name="delete:\proposal\(id):order-eapi-config">
-        <logger level="INFO" doc:name="Start - Logger" doc:id="6bb2911a-025b-4576-b4cc-2b1768224807" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Proposal Status Cancel to Dealernet",&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
-		<ee:transform doc:name="Transform Message">
+        <logger level="INFO" doc:name="Start - Logger" doc:id="6bb2911a-025b-4576-b4cc-2b1768224807" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Proposal Status Cancel to Dealernet&quot;,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+        <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="cancel-proposal-subflow" doc:id="0b4cbc55-1307-4be0-aad5-ce28533b187c" name="cancel-proposal-subflow"/>
-		<logger level="INFO" doc:name="End - Logger" doc:id="60292e2d-e80e-4975-a1b4-b2bc649a0a2e" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "End Flow Send Proposal Status Cancel to Dealernet",&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+        <flow-ref doc:name="cancel-proposal-subflow" doc:id="0b4cbc55-1307-4be0-aad5-ce28533b187c" name="cancel-proposal-subflow" />
+        <logger level="INFO" doc:name="End - Logger" doc:id="60292e2d-e80e-4975-a1b4-b2bc649a0a2e" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Proposal Status Cancel to Dealernet&quot;,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+    </flow>
+    <flow name="post:\assets:application\json:order-eapi-config">
+		<logger level="INFO" doc:name="Start - Logger" doc:id="c134df75-009d-46d6-b3f6-8c2c87b44b22" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Assets to Dealernet",&#10; attributes: attributes,&#10; correlationId: correlationId&#10; &#10;}]' />
+		<flow-ref doc:name="send-asset-to-product-papi" doc:id="6ef581c7-23c8-4316-a090-125fc8e70c40" name="send-asset-to-product-papi"/>
     </flow>
 </mule>
