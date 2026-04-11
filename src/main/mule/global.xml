@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:product-papi="http://www.mulesoft.org/schema/mule/product-papi" xmlns:order-papi="http://www.mulesoft.org/schema/mule/order-papi"
-	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
-	xmlns:dealernet-sapi="http://www.mulesoft.org/schema/mule/dealernet-sapi" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce-sapi="http://www.mulesoft.org/schema/mule/salesforce-sapi" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:order-papi="http://www.mulesoft.org/schema/mule/order-papi" xmlns:product-papi="http://www.mulesoft.org/schema/mule/product-papi"
+	xmlns:order-eapi="http://www.mulesoft.org/schema/mule/order-eapi"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:dealernet-sapi="http://www.mulesoft.org/schema/mule/dealernet-sapi" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce-sapi="http://www.mulesoft.org/schema/mule/salesforce-sapi" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
 http://www.mulesoft.org/schema/mule/salesforce-sapi http://www.mulesoft.org/schema/mule/salesforce-sapi/current/mule-salesforce-sapi.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/dealernet-sapi http://www.mulesoft.org/schema/mule/dealernet-sapi/current/mule-dealernet-sapi.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
-http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mule/order-papi/current/mule-order-papi.xsd
-http://www.mulesoft.org/schema/mule/product-papi http://www.mulesoft.org/schema/mule/product-papi/current/mule-product-papi.xsd">
+http://www.mulesoft.org/schema/mule/order-eapi http://www.mulesoft.org/schema/mule/order-eapi/current/mule-order-eapi.xsd
+http://www.mulesoft.org/schema/mule/product-papi http://www.mulesoft.org/schema/mule/product-papi/current/mule-product-papi.xsd
+http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mule/order-papi/current/mule-order-papi.xsd">
 	<global-property doc:name="Global Property" doc:id="0eea76ea-29db-436f-bdcd-124d8380e6f5" name="mule.env" value="qa" />
 	<global-property doc:name="Global Property" doc:id="005eef5e-31ba-41a9-b7a3-9bbe174221cf" name="nameSpace" value="ORDER-EAPI" />
 	<configuration-properties doc:name="Configuration properties" doc:id="26bd1c23-271a-41ad-9699-788d9d99a7ad" file="properties\config-${mule.env}.yaml" />
@@ -19,39 +20,35 @@ http://www.mulesoft.org/schema/mule/product-papi http://www.mulesoft.org/schema/
 	<salesforce-sapi:config name="Salesforce_sapi_Config" doc:name="Salesforce-sapi Config" doc:id="29650078-17ec-499f-8a5e-f8033945cfad" property_host="${salesforce-sapi.host}" property_port="${salesforce-sapi.port}" property_basePath="/api/" property_responseTimeout="${salesforce-sapi.timeout}" />
 	<dealernet-sapi:config name="Dealernet_sapi_Config" doc:name="Dealernet-sapi Config" doc:id="1ee8f944-aa16-4095-9f6e-b7eb137402a9" property_host="${dealernet-sapi.host}" property_port="${dealernet-sapi.port}" property_basePath="/api/" property_responseTimeout="${dealernet-sapi.timeout}" />
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="ca868c77-cf44-424c-ac6c-7b9c94dd4594" flowRef="order-eapi-main" />
-	<order-papi:config name="Order_papi_Config" doc:name="Order-papi Config" doc:id="fb224dcc-eddc-41e5-b730-07d006cd842c" property_host="${order-papi.host}" property_port="${order-papi.port}" property_basePath="/api/" property_responseTimeout="${order-papi.timeout}" />
 	<product-papi:config name="Product_papi_Config" doc:name="Product-papi Config" doc:id="f905374d-39f3-4da8-b62b-949ded8746a3" property_host="${product-papi.host}" property_port="${product-papi.port}" property_basePath="/api/" property_responseTimeout="50000" />
+	<order-papi:config name="Order_papi_Config" doc:name="Order-papi Config" doc:id="b2f459ac-c057-4a89-ba71-5c461070d317" property_host="${order-papi.host}" property_port="${order-papi.port}" property_basePath="/api/" property_responseTimeout="50000" />
 	<error-handler name="globalError_Router" doc:id="f3216fd3-6522-4ec8-a4c9-6a2de0827765" >
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="808f9a2f-924f-43c6-8f7c-540eac329592" type="*:BAD_REQUEST" >
 			<ee:transform doc:name="Error Payload" doc:id="3e554a2b-f558-4f1b-a03c-eeec6a6caad9" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Bad Request",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[400]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Bad Request",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="dc3c2098-93b6-4441-9d59-fef5ff559d11" message="#[vars.erro]" />
@@ -61,32 +58,28 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="81ddbf79-a9f5-4df8-bbd6-e6903c265d55" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Unauthorized",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[401]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload.cause != null) error.exception.errorMessage.payload.cause.message
-else if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Unauthorized",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="97578611-21fa-4c14-8c8e-d0604bdc1857" message="#[vars.erro]" />
@@ -96,30 +89,28 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="679a7f8f-baed-4c57-b9ee-0fb6af8ca1d8" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Forbidden",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[403]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Forbidden",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="6944ad4b-baff-470d-9708-f7aab1ec02a7" message="#[vars.erro]" />
@@ -129,30 +120,28 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="c532d9c9-b77d-40f2-a108-771f02623f53" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Not Found",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[404]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Not Found",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="c478f67e-1a05-4db3-9667-e0d5e8cb3349" message="#[vars.erro]" />
@@ -162,30 +151,28 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="82bafdaf-ac76-4615-9b6d-f2e54ed06f42" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Bad Gateway",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[502]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Bad Gateway",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="d472378d-1b72-4b57-8956-8c961fbdf719" message="#[vars.erro]" />
@@ -195,30 +182,28 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="61cf321b-eb29-49ac-9c1e-f72138615e12" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Service Unavaible",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[503]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Service Unavaible",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="44937db4-9926-484e-807b-bcc92516ea55" message="#[vars.erro]" />
@@ -228,30 +213,28 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="2940ff35-976c-43e3-8c3c-943daa46366f" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
 	errorType: error.errorType.identifier,
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[400]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Query Execution",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="c67dbc60-9731-428f-b112-f034634f8068" message="#[vars.erro]" />
@@ -261,30 +244,29 @@ output application/json
 			<ee:transform doc:name="Error Payload" doc:id="fdf274be-ff47-470b-8fc0-583a23e4e48c" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
 	errorType: error.errorType.identifier,
-	layer: error.errorType.namespace,
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-payload>
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}
+]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
-					<ee:set-variable variableName="httpStatus" ><![CDATA[503]]></ee:set-variable>
 					<ee:set-variable variableName="erro" ><![CDATA[%dw 2.0
-var cause = if(error.exception.errorMessage.payload != null) error.exception.errorMessage.payload 
-else error.exception.cause.message
+
 output application/json
 ---
 {
-	errorType: "Internal Server Error",
-	layer: "order-papi",
-	description: error.detailedDescription,
-	cause: cause
-}]]></ee:set-variable>
+	errorType: error.errorType.identifier,
+	layer: if(error.errorType.namespace contains ("api")) error.errorType.namespace
+	else "order-eapi",
+	description: error.exception.errorMessage.payload.description default error.exception.message
+	}
+]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="2f514c77-1273-4c78-ae4b-8ffa9e3453bc" message="#[payload]" />

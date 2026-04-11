@@ -22,4 +22,7 @@ http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mu
 	<sub-flow name="send-used-evaluation-subflow" doc:id="54d60175-5643-4f6f-a980-e2f16625cc7e" >
 		<order-papi:create-used-valuation doc:name="Create used valuation" doc:id="3494d4dc-8e94-4207-b2d2-76398049086b" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}" />
 	</sub-flow>
+	<sub-flow name="update-ps-from-salesforce-to-dealernet" doc:id="144f3816-dd9e-4014-866c-8da4928fd2a9" >
+		<order-papi:update-os doc:name="Update OS" doc:id="68add955-3d96-484f-a318-733813f1c547" os-id="#[vars.osId]" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
+	</sub-flow>
 </mule>

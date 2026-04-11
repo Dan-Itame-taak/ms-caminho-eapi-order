@@ -63,33 +63,33 @@
 		</dependency>
 		<dependency>
 			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
-			<artifactId>order-eapi</artifactId>
-			<version>1.0.10</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
-			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
-			<artifactId>mule-plugin-salesforce-sapi</artifactId>
-			<version>1.0.26</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
 			<artifactId>mule-plugin-dealernet-sapi</artifactId>
 			<version>1.0.23</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
 			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
-			<artifactId>mule-plugin-order-papi</artifactId>
+			<artifactId>mule-plugin-product-papi</artifactId>
 			<version>1.0.4</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
 			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
-			<artifactId>mule-plugin-product-papi</artifactId>
-			<version>1.0.4</version>
+			<artifactId>order-eapi</artifactId>
+			<version>1.0.11</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
+			<artifactId>mule-plugin-order-papi</artifactId>
+			<version>1.0.5</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4</groupId>
+			<artifactId>mule-plugin-salesforce-sapi</artifactId>
+			<version>1.0.28</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
