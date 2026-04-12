@@ -150,7 +150,7 @@ payload]]></ee:set-payload>
         <logger level="INFO" doc:name="End - Logger" doc:id="60292e2d-e80e-4975-a1b4-b2bc649a0a2e" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Proposal Status Cancel to Dealernet&quot;,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\assets:application\json:order-eapi-config">
-        <logger level="INFO" doc:name="Start - Logger" doc:id="c134df75-009d-46d6-b3f6-8c2c87b44b22" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Assets to Dealernet&quot;,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
+        <logger level="INFO" doc:name="Start - Logger" doc:id="c134df75-009d-46d6-b3f6-8c2c87b44b22" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Assets to Dealernet",&#10; attributes: attributes,&#10; correlationId: correlationId,&#10; payload: payload&#10; &#10;}]' />
         <flow-ref doc:name="send-asset-to-product-papi" doc:id="6ef581c7-23c8-4316-a090-125fc8e70c40" name="send-asset-to-product-papi" />
         <ee:transform doc:name="Response Payload" doc:id="b4bee03c-a422-4015-b09f-47742f402762">
             <ee:message>
