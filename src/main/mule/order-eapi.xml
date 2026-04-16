@@ -3,7 +3,7 @@
     <http:listener-config name="order-eapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.11:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.12:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="order-eapi-main">
         <http:listener config-ref="order-eapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -107,8 +107,16 @@ output application/json
 attributes.queryParams.company]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="search-recordType-salesforce" doc:id="f3212875-c097-496b-bea4-56911fcecb0d" name="search-recordType-salesforce" />
+        <!-- [STUDIO:"search-recordType-salesforce"]<flow-ref doc:name="search-recordType-salesforce" doc:id="f3212875-c097-496b-bea4-56911fcecb0d" name="search-recordType-salesforce" /> [STUDIO] -->
         <flow-ref doc:name="get-employees-schedulling" doc:id="193280ac-c9e5-4620-bfa9-66dfacc99b4b" name="get-employees-schedulling" />
+        <ee:transform doc:name="Response Payload" doc:id="a4b39e8c-697c-4887-875f-81d1c8a07693">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
     </flow>
     <flow name="post:\fandi\credit-analysis\status:application\json:order-eapi-config">
         <ee:transform doc:name="Payload" doc:id="421b090e-ea91-4c98-9ff0-755b83661cbf">
@@ -150,7 +158,7 @@ payload]]></ee:set-payload>
         <logger level="INFO" doc:name="End - Logger" doc:id="60292e2d-e80e-4975-a1b4-b2bc649a0a2e" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;End Flow Send Proposal Status Cancel to Dealernet&quot;,&#xA; attributes: attributes,&#xA; correlationId: correlationId&#xA; &#xA;}]" />
     </flow>
     <flow name="post:\assets:application\json:order-eapi-config">
-        <logger level="INFO" doc:name="Start - Logger" doc:id="c134df75-009d-46d6-b3f6-8c2c87b44b22" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10; message: "Start Flow Send Assets to Dealernet",&#10; attributes: attributes,&#10; correlationId: correlationId,&#10; payload: payload&#10; &#10;}]' />
+        <logger level="INFO" doc:name="Start - Logger" doc:id="c134df75-009d-46d6-b3f6-8c2c87b44b22" message="#[%dw 2.0&#xA;output application/json&#xA;---&#xA;{&#xA; message: &quot;Start Flow Send Assets to Dealernet&quot;,&#xA; attributes: attributes,&#xA; correlationId: correlationId,&#xA; payload: payload&#xA; &#xA;}]" />
         <flow-ref doc:name="send-asset-to-product-papi" doc:id="6ef581c7-23c8-4316-a090-125fc8e70c40" name="send-asset-to-product-papi" />
         <ee:transform doc:name="Response Payload" doc:id="b4bee03c-a422-4015-b09f-47742f402762">
             <ee:message>
@@ -167,7 +175,7 @@ payload]]></ee:set-payload>
                 <ee:set-variable variableName="osId">attributes.uriParams.'osId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="update-ps-from-salesforce-to-dealernet" doc:id="2ab38659-71f8-4c92-9b7a-94d1a6a731f6" name="update-ps-from-salesforce-to-dealernet"/>
-		<logger level="INFO" message="patch:\service-order\(osId):application\json:order-eapi-config" />
+        <flow-ref doc:name="update-ps-from-salesforce-to-dealernet" doc:id="2ab38659-71f8-4c92-9b7a-94d1a6a731f6" name="update-ps-from-salesforce-to-dealernet" />
+        <logger level="INFO" message="patch:\service-order\(osId):application\json:order-eapi-config" />
     </flow>
 </mule>
