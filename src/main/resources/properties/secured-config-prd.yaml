@@ -1,0 +1,20 @@
+fandi:
+  token: "![g3Uz6eiVQ9knZANfiBqwKew5vADXzcsJ]"
+  client_id: "![GqReF7IZh1+sdwVLhwUONvxUsjzgyox9np284XCOMAlhlNN/blhB2g==]"
+  client_secret: "![haFQcMohR+vuzL7Ei8WXRXt1g1Q7hJPEdn2DY8alyFF87gudOHfFcA==]"
+  
+salesforce-sapi:
+  client_id: "![VonK6EB5YWnWRjqCJW9LaidepUFn2/DII5SA4VqXfwpXjtFhFZ0XzA==]"
+  client_secret: "![HtZIik6eahnhfvV3EaBTNvviS4gBoZUAvDBjEFE9JzwbKEr/MFuEMA==]"
+  
+dealernet-sapi:
+  client_id: "![VonK6EB5YWnWRjqCJW9LaidepUFn2/DII5SA4VqXfwpXjtFhFZ0XzA==]" #0693dc0037b04ad7a99ab08919ada38a
+  client_secret: "![HtZIik6eahnhfvV3EaBTNvviS4gBoZUAvDBjEFE9JzwbKEr/MFuEMA==]" #A6D87b6801874FC28Dec7524045C06d9
+
+order-papi:
+  client_id: "![VonK6EB5YWnWRjqCJW9LaidepUFn2/DII5SA4VqXfwpXjtFhFZ0XzA==]" 
+  client_secret: "![HtZIik6eahnhfvV3EaBTNvviS4gBoZUAvDBjEFE9JzwbKEr/MFuEMA==]" 
+  
+dealernet:
+  client_id: "![VonK6EB5YWnWRjqCJW9LaidepUFn2/DII5SA4VqXfwpXjtFhFZ0XzA==]" 
+  client_secret: "![HtZIik6eahnhfvV3EaBTNvviS4gBoZUAvDBjEFE9JzwbKEr/MFuEMA==]"

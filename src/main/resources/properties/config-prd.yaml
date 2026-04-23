@@ -1,2 +1,25 @@
 api:
- id: ""
+ id: "20867691"
+ 
+salesforce-sapi:
+  host: "caminho-salesforce-sapi-qnrker.f12twh.usa-e2.cloudhub.io"
+  port: "443"
+  timeout: "30000"
+  
+dealernet-sapi:
+  host: "caminho-dealernet-sapi-qnrker.f12twh.usa-e2.cloudhub.io"
+  port: "443"
+  timeout: "50000"
+  basePath: "/api"
+
+order-papi:
+  host: "caminho-order-papi-qnrker.f12twh.usa-e2.cloudhub.io"
+  port: "443"
+  timeout: "50000"
+  basePath: "/api"
+  
+product-papi:
+  host: "caminho-product-papi-qnrker.f12twh.usa-e2.cloudhub.io"
+  port: "443"
+  timeout: "50000"
+  basePath: "/api"
