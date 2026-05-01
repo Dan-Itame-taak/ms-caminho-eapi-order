@@ -1,7 +1,7 @@
 fandi:
-  token: "![g3Uz6eiVQ9knZANfiBqwKew5vADXzcsJ]"
-  client_id: "![GqReF7IZh1+sdwVLhwUONvxUsjzgyox9np284XCOMAlhlNN/blhB2g==]"
-  client_secret: "![haFQcMohR+vuzL7Ei8WXRXt1g1Q7hJPEdn2DY8alyFF87gudOHfFcA==]"
+  token: "![3OuU5fJ7PY8Y2MPW7bbY99Xoht1sqWu9]"
+  client_id: "![VonK6EB5YWnWRjqCJW9LaidepUFn2/DII5SA4VqXfwpXjtFhFZ0XzA==]"
+  client_secret: "![HtZIik6eahnhfvV3EaBTNvviS4gBoZUAvDBjEFE9JzwbKEr/MFuEMA==]"
   
 salesforce-sapi:
   client_id: "![VonK6EB5YWnWRjqCJW9LaidepUFn2/DII5SA4VqXfwpXjtFhFZ0XzA==]"
