@@ -5,6 +5,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/product-papi http://www.mulesoft.org/schema/mule/product-papi/current/mule-product-papi.xsd">
 	<sub-flow name="send-asset-to-product-papi" doc:id="a8c429a7-706c-4d32-8ff0-066f9fb54ebe" >
-		<product-papi:send-asset-to-dealernet doc:name="Send Asset to DealerNet" doc:id="038a5ae5-9f0d-4bb5-8481-f9cb09b91a1d" config-ref="Product_papi_Config" client-id="$secure::dealernet.client_id}" client-secret="$secure::dealernet.client_secret}"/>
+		<product-papi:send-asset-to-dealernet doc:name="Send Asset to DealerNet" doc:id="038a5ae5-9f0d-4bb5-8481-f9cb09b91a1d" config-ref="Product_papi_Config" client-id="${secure::dealernet.client_id}" client-secret="${secure::dealernet.client_secret}"/>
 	</sub-flow>
 </mule>
