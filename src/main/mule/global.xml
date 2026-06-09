@@ -52,7 +52,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="dc3c2098-93b6-4441-9d59-fef5ff559d11" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="cb576546-3811-4621-9f4f-e4f742e9c97c" type="${nameSpace}:BAD_REQUEST" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate1" doc:id="e489dc05-9dfe-45bf-ae79-4b5c5c4ceadc" type="*:UNAUTHORIZED" >
 			<ee:transform doc:name="Error Payload" doc:id="81ddbf79-a9f5-4df8-bbd6-e6903c265d55" >
@@ -83,7 +82,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="97578611-21fa-4c14-8c8e-d0604bdc1857" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="199b7b0e-443e-467b-aecf-1992c2389c01" type="${nameSpace}:UNAUTHORIZED" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate2" doc:id="8ee09285-46b0-40e9-98eb-2ed5737c27a0" type="*:FORBIDDEN" >
 			<ee:transform doc:name="Error Payload" doc:id="679a7f8f-baed-4c57-b9ee-0fb6af8ca1d8" >
@@ -114,7 +112,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="6944ad4b-baff-470d-9708-f7aab1ec02a7" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="b3193827-e32d-4fd3-9b52-9c0f252db6d2" type="${nameSpace}:FORBIDDEN" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate3" doc:id="5eb306b7-2db8-4c1b-8c95-90b998865bf3" type="*:NOT_FOUND" >
 			<ee:transform doc:name="Error Payload" doc:id="c532d9c9-b77d-40f2-a108-771f02623f53" >
@@ -145,7 +142,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="c478f67e-1a05-4db3-9667-e0d5e8cb3349" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="8838348f-3744-44e2-b096-a25faddf2892" type="${nameSpace}:NOT_FOUND" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate4" doc:id="ca29d13a-5cde-440a-89e9-975b25f59029" type="*:BAD_GATEWAY" >
 			<ee:transform doc:name="Error Payload" doc:id="82bafdaf-ac76-4615-9b6d-f2e54ed06f42" >
@@ -176,7 +172,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="d472378d-1b72-4b57-8956-8c961fbdf719" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="969b57ec-6b95-4be7-9ec5-bf7e34d91871" type="${nameSpace}:BAD_GATEWAY" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate5" doc:id="7cdfae07-0887-476c-aeae-0b7cc646ddd9" type="*:SERVICE_UNAVAILABLE" >
 			<ee:transform doc:name="Error Payload" doc:id="61cf321b-eb29-49ac-9c1e-f72138615e12" >
@@ -207,7 +202,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="44937db4-9926-484e-807b-bcc92516ea55" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="fec43eda-4389-405e-989b-8b85fc5278e9" type="${nameSpace}:SERVICE_UNAVAILABLE" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate6" doc:id="77c19f26-6da1-4565-ab85-669e85bee13d" type="DB:*" >
 			<ee:transform doc:name="Error Payload" doc:id="2940ff35-976c-43e3-8c3c-943daa46366f" >
@@ -238,7 +232,6 @@ output application/json
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Logger Error" doc:id="c67dbc60-9731-428f-b112-f034634f8068" message="#[vars.erro]" />
-			<raise-error doc:name="Raise error" doc:id="6179d193-c6c5-4176-80bd-46a8ed43b06c" type="${nameSpace}:QUERY_EXECUTION" description="#[vars.erro.description]" />
 		</on-error-propagate>
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate7" doc:id="ccce8cf2-9be7-4443-9045-ae2588aa8646" type="ANY" >
 			<ee:transform doc:name="Error Payload" doc:id="fdf274be-ff47-470b-8fc0-583a23e4e48c" >

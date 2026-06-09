@@ -28,4 +28,7 @@ http://www.mulesoft.org/schema/mule/order-papi http://www.mulesoft.org/schema/mu
 	<sub-flow name="update-simulation-status-from-fandi-to-salesforce" doc:id="2cae4701-87cb-486f-bc6b-7c06f5d2ba59" >
 		<order-papi:send-credit-analysis-status doc:name="Send Credit Analysis Status" doc:id="32f7932d-6fe7-46c9-bf99-1e41adad16b8" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
 	</sub-flow>
+	<sub-flow name="send-order-bank-from-salesforce-to-dealernet" doc:id="25008a2c-f967-4399-974e-5e30d1903d74" >
+		<order-papi:send-vehicle-to-order-bank doc:name="Send Vehicle to Order Bank" doc:id="aa05e836-0d1e-45aa-bf9e-905255440729" config-ref="Order_papi_Config" client-id="${secure::order-papi.client_id}" client-secret="${secure::order-papi.client_secret}"/>
+	</sub-flow>
 </mule>

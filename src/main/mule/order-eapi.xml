@@ -3,7 +3,7 @@
     <http:listener-config name="order-eapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.14:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="order-eapi-config" api="resource::3ef2b520-3a61-4eeb-b14c-cd1a42d10fb4:order-eapi:1.0.15:raml:zip:order-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="order-eapi-main">
         <http:listener config-ref="order-eapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -177,5 +177,9 @@ payload]]></ee:set-payload>
         </ee:transform>
         <flow-ref doc:name="update-ps-from-salesforce-to-dealernet" doc:id="2ab38659-71f8-4c92-9b7a-94d1a6a731f6" name="update-ps-from-salesforce-to-dealernet" />
         <logger level="INFO" message="patch:\service-order\(osId):application\json:order-eapi-config" />
+    </flow>
+    <flow name="post:\order-bank:application\json:order-eapi-config">
+		<logger level="INFO" doc:name="Logger" doc:id="fa8c89dd-6f24-4935-a6fb-3217b9911878" message="Integration: send-order-bank-to-dealernet | correlationId: #[correlationId] | SalesForceId: #[payload]"/>
+		<flow-ref doc:name="send-order-bank-from-salesforce-to-dealernet" doc:id="8c21a4bd-74c5-4e5f-9c6f-66b159bf9192" name="send-order-bank-from-salesforce-to-dealernet"/>
     </flow>
 </mule>
